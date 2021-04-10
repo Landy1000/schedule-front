@@ -20,7 +20,7 @@ export const signIn = (email, password) => {
           uid: res.headers.uid,
           client: res.headers.client
         }
-        console.log(userInitialData)
+        console.log(res.data.name)
 
         dispatch(signInAction({
           isSignedIn: true,
@@ -28,14 +28,42 @@ export const signIn = (email, password) => {
           uid: res.headers.uid,
           client: res.headers.client
         }))
-        dispatch(push('/'))
+        dispatch(push('/'));
 
       })
-      
-
-    //history=useHistory();
-    history.push("/")
     }
+  }
+}
+
+export const signUp = (username, email, password, confirmPassword) => {
+  return async (dispatch) => {
+    if (username === "" || email === "" || password === "" || confirmPassword === ""){
+      alert("必須項目が未入力です")
+      return false
+    }
+    if (password !== confirmPassword){
+      alert("パスワードが一致しません。もう一度お試しください。")
+      return false
+    }
+
+    axios.post('http://localhost:3001/v1/auth/', {
+      name: username,
+      email: email,
+      password: password,
+      password_confirmation: confirmPassword
+    })
+    .then(res => {
+      console.log(res.headers)
+
+      dispatch(signInAction({
+        isSignedIn: true,
+        accessToken: res.headers.["access-token"],
+        uid: res.headers.uid,
+        client: res.headers.client
+      }))
+      dispatch(push('/'));
+    })
+
   }
 }
 

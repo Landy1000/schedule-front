@@ -3,7 +3,7 @@ import { signIn } from '../../reducks/users/operations';
 import {PrimaryButton, TextInput} from "../UIkit"
 import { useDispatch } from 'react-redux';
 
-const LogIn = () => {
+const SignIn = () => {
   const dispatch = useDispatch()
 
   const [email, setEmail] = useState(""),
@@ -40,4 +40,4 @@ const LogIn = () => {
 }
 
 
-export default LogIn;
+export default SignIn;

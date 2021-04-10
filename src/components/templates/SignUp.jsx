@@ -3,6 +3,8 @@ import {PrimaryButton, TextInput} from "../UIkit"
 import {Link} from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
+import { signUp } from '../../reducks/users/operations';
+
 
 const SignUp = () => {
 
@@ -53,7 +55,7 @@ const SignUp = () => {
         <div>
           <PrimaryButton
             label={"アカウントを登録する"}
-            //onClick={() => dispatch(signUp(username, email, password, confirmPassword))}
+            onClick={() => dispatch(signUp(username, email, password, confirmPassword))}
           />
         </div>
       </div>
