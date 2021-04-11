@@ -1,4 +1,4 @@
-import {signInAction} from "./actions"
+import { signInAction, signOutAction } from "./actions"
 import {push} from 'connected-react-router'
 import axios from 'axios';
 
@@ -20,7 +20,7 @@ export const signIn = (email, password) => {
           uid: res.headers.uid,
           client: res.headers.client
         }
-        console.log(res.data.name)
+        console.log(res.data)
 
         dispatch(signInAction({
           isSignedIn: true,
@@ -62,6 +62,33 @@ export const signUp = (username, email, password, confirmPassword) => {
         client: res.headers.client
       }))
       dispatch(push('/'));
+    })
+
+  }
+}
+
+export const signOut = () => {
+
+  return async (dispatch, getState) => {
+    const state = getState()
+    const token = state.users.accessToken
+    const uid = state.users.uid
+    const client = state.users.client
+    axios({
+      method: 'delete',
+      url: 'http://localhost:3001/v1/auth/sign_out',
+      headers: {
+        ["access-token"]: token,
+        uid: uid,
+        client: client,
+        //["Content-Type"]: "application/json"
+      }
+    })
+    .then(res => {
+      console.log(res.headers)
+
+      dispatch(signOutAction());
+      dispatch(push('/signin'));
     })
 
   }

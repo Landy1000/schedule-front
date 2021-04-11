@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Link, Switch} from "react-router-dom";
+import { Route, Switch} from "react-router-dom";
 import {SignUp, SignIn, Home} from './components/templates';
 //import { generateRequireSignInWrapper } from 'redux-token-auth'
 
@@ -9,7 +9,6 @@ import {SignUp, SignIn, Home} from './components/templates';
 
 const Router = () => {
   return(
-    
       <Switch>
         <Route path="/signup" exact component={SignUp} />
         <Route path="/signin/" exact component={SignIn} />
