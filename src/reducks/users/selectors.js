@@ -4,5 +4,5 @@ const usersSelector = (state) => state.users;
 
 export const getUserName = createSelector(
   [usersSelector],
-  state => state.uid
+  state => state.username
 )

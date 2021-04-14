@@ -7,7 +7,9 @@ export const signInAction = (userState) => {
 
       accessToken: userState.accessToken,
       uid: userState.uid,
-      client: userState.client
+      client: userState.client,
+
+      username: userState.username
       
     }
   }

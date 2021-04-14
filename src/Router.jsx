@@ -7,6 +7,10 @@ import {SignUp, SignIn, Home} from './components/templates';
   //redirectPathIfNotSignedIn: '/login',
 //})
 
+
+// <Route path="/room/new" exact component={CreateRoom} />
+// <Route path="/room(/:id)?") component={Room} />
+
 const Router = () => {
   return(
       <Switch>

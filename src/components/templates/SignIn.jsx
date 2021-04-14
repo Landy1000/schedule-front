@@ -2,6 +2,7 @@ import React ,{useCallback, useState} from 'react';
 import { signIn } from '../../reducks/users/operations';
 import {PrimaryButton, TextInput} from "../UIkit"
 import { useDispatch } from 'react-redux';
+import {Link} from "react-router-dom";
 
 const SignIn = () => {
   const dispatch = useDispatch()
@@ -20,6 +21,7 @@ const SignIn = () => {
   return(
 
       <div>
+        <Link to="/signup/">アカウント登録</Link>
         <h2>ログイン</h2>
         <TextInput
         fullWidth={true} label={"Email"} multiline={false} required={true}

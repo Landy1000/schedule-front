@@ -3,9 +3,12 @@ const initialState = {
     isSignedIn: false,
       accessToken: "",
       client: "",
-      uid: ""
-
+      uid: "",
+      username: ""
   },
+  myRooms: {
+    list: []
+  }
 }
 
 export default initialState

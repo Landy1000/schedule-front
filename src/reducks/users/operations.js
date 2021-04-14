@@ -15,18 +15,15 @@ export const signIn = (email, password) => {
         password: password
       })
       .then(res => {
-        const userInitialData = {
-          access_token: res.headers.["access-token"],
-          uid: res.headers.uid,
-          client: res.headers.client
-        }
-        console.log(res.data)
+
+        const json = res.data
 
         dispatch(signInAction({
           isSignedIn: true,
           accessToken: res.headers.["access-token"],
           uid: res.headers.uid,
-          client: res.headers.client
+          client: res.headers.client,
+          username: json.data.name
         }))
         dispatch(push('/'));
 
@@ -93,4 +90,5 @@ export const signOut = () => {
 
   }
 }
+
 
