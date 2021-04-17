@@ -4,11 +4,13 @@ import axios from 'axios';
 
 export const createRoom = (name, user_ids) => {
   return async (dispatch, getState) => {
-    user_ids.push("1")
+    const list = [user_ids]
+    list.push("1")
+    console.log(list)
     const data = {
       room:{
         name: name,
-        user_ids: user_ids
+        user_ids: list
       }
     }
 

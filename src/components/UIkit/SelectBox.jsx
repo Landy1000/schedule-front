@@ -4,6 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/styles';
+// import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles({
   formControl:{
@@ -25,7 +26,9 @@ const SelectBox = (props) => {
         onChange={(event) => props.select(event.target.value)}
       >
         {props.options.map((option) => (
-          <MenuItem key={option.id} value={option.id}>{option.name}</MenuItem>
+          <MenuItem key={option.id} value={option.id}>
+            {option.name}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>
