@@ -2,6 +2,44 @@ import { fetchMyRoomsAction } from "./actions"
 import {push} from 'connected-react-router'
 import axios from 'axios';
 
+export const createRoom = (name, user_ids) => {
+  return async (dispatch, getState) => {
+    user_ids.push("1")
+    const data = {
+      room:{
+        name: name,
+        user_ids: user_ids
+      }
+    }
+
+    console.log(data)
+
+    const state = getState()
+    const token = state.users.accessToken
+    const uid = state.users.uid
+    const client = state.users.client
+    axios({
+      method: 'post',
+      url: 'http://localhost:3001/rooms/create',
+      headers: {
+        ["access-token"]: token,
+        uid: uid,
+        client: client,
+        //["Content-Type"]: "application/json"
+      },
+      data: {
+        data
+      }
+
+    })
+    .then(snapshots => {
+      
+      console.log(snapshots)
+      dispatch(push('/'));
+    });
+  }
+}
+
 export const fetchMyRooms = () => {
 
   return async (dispatch, getState) => {

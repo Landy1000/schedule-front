@@ -8,6 +8,9 @@ const initialState = {
   },
   myRooms: {
     list: []
+  },
+  friends: {
+    list: []
   }
 }
 
