@@ -4,7 +4,8 @@ const initialState = {
       accessToken: "",
       client: "",
       uid: "",
-      username: ""
+      username: "",
+      id: ""
   },
   myRooms: {
     list: []

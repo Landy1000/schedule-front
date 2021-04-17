@@ -23,7 +23,8 @@ export const signIn = (email, password) => {
           accessToken: res.headers.["access-token"],
           uid: res.headers.uid,
           client: res.headers.client,
-          username: json.data.name
+          username: json.data.name,
+          id: json.data.id,
         }))
         dispatch(push('/'));
 
@@ -50,13 +51,15 @@ export const signUp = (username, email, password, confirmPassword) => {
       password_confirmation: confirmPassword
     })
     .then(res => {
-      console.log(res.headers)
+      const json = res.data
 
       dispatch(signInAction({
         isSignedIn: true,
         accessToken: res.headers.["access-token"],
         uid: res.headers.uid,
-        client: res.headers.client
+        client: res.headers.client,
+        username: json.data.name,
+        id: json.data.id,
       }))
       dispatch(push('/'));
     })

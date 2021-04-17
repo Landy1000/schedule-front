@@ -9,8 +9,8 @@ export const signInAction = (userState) => {
       uid: userState.uid,
       client: userState.client,
 
-      username: userState.username
-      
+      username: userState.username,
+      id: userState.id
     }
   }
 };
@@ -24,7 +24,9 @@ export const signOutAction = () => {
 
       accessToken: "",
       uid: "",
-      client: ""
+      client: "",
+      username: "",
+      id: ""
       
     }
   }

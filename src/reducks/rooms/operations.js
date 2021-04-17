@@ -4,8 +4,12 @@ import axios from 'axios';
 
 export const createRoom = (name, user_ids) => {
   return async (dispatch, getState) => {
+
+    const state = getState()
+    const userId = state.users.id
+
     const list = [user_ids]
-    list.push("1")
+    list.push(userId)
     console.log(list)
     const data = {
       room:{
@@ -16,22 +20,19 @@ export const createRoom = (name, user_ids) => {
 
     console.log(data)
 
-    const state = getState()
     const token = state.users.accessToken
     const uid = state.users.uid
     const client = state.users.client
     axios({
       method: 'post',
-      url: 'http://localhost:3001/rooms/create',
+      url: 'http://localhost:3001/rooms/',
       headers: {
         ["access-token"]: token,
         uid: uid,
         client: client,
         //["Content-Type"]: "application/json"
       },
-      data: {
-        data
-      }
+      data
 
     })
     .then(snapshots => {
