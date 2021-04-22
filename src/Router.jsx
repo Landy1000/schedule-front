@@ -1,8 +1,7 @@
 import React from 'react';
 import { Route, Switch} from "react-router-dom";
-import {SignUp, SignIn, Home, RoomEdit} from './components/templates';
+import {SignUp, SignIn, Home, RoomEdit, Room, ScheduleEdit, Test} from './components/templates';
 
-// <Route path="/room/new" exact component={CreateRoom} />
 // <Route path="/room(/:id)?") component={Room} />
 
 // generateRequireSignInWrapperのissueより
@@ -32,6 +31,9 @@ const Router = () => {
         <Route path="/signin/" exact component={SignIn} />
         <Route path="/" exact component={requireSignIn(Home)} />
         <Route path="/room/edit" exact component={requireSignIn(RoomEdit)} />
+        <Route path="/room/:id" component={Room} />
+        <Route path="/schedule" component={requireSignIn(ScheduleEdit)} />
+        <Route path="/test" component={Test} />
       </Switch>
   );
 };

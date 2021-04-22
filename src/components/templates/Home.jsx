@@ -21,24 +21,26 @@ function Home() {
     const myRooms = getMyRooms(selector)
 
     return(
-        <div>
-            <h1>ようこそ、{username}さん</h1>
-            <ul>
-                <li><Link to="/room/edit">新規ルーム作成</Link></li>
-            </ul>
+        <div className="c-section-container">
+            <h1 className="u-text_headline u-text-center">ようこそ、{username}さん</h1>
+            <div className="center">
+                <Link to="/room/edit">新規ルーム作成</Link>
+                <Link to="/test">テスト</Link>
+            </div>
 
-            <div>
+            <div className="center">
                 {myRooms.length > 0 && (
                     myRooms.map(myRoom => (
                         <div key={myRoom.id}><Link to={"/room/"+myRoom.id} >{myRoom.name}</Link></div>
                     ))
                 )}
             </div>
-
-            <PrimaryButton
-                label={"ログアウト"}
-                onClick={() => dispatch(signOut())}
-            />
+            <div className="center">
+                <PrimaryButton
+                    label={"ログアウト"}
+                    onClick={() => dispatch(signOut())}
+                />
+            </div>
         </div>
     );
 }

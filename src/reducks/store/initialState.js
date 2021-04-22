@@ -12,6 +12,9 @@ const initialState = {
   },
   friends: {
     list: []
+  },
+  schedules: {
+    list: []
   }
 }
 
