@@ -2,7 +2,8 @@ import { fetchSchedulesAction } from "./actions"
 import {push} from 'connected-react-router'
 import axios from 'axios';
 
-export const editSchedule = (time) => {
+export const editSchedule = (time, elementId, text) => {
+  if (text==="false"){
   return async (dispatch, getState) => {
 
     const state = getState()
@@ -20,6 +21,8 @@ export const editSchedule = (time) => {
     const token = state.users.accessToken
     const uid = state.users.uid
     const client = state.users.client
+
+
     axios({
       method: 'post',
       url: 'http://localhost:3001/rooms/1/schedules',
@@ -35,8 +38,45 @@ export const editSchedule = (time) => {
     .then(snapshots => {
       
       console.log(snapshots)
+      dispatch(push('/'))
       dispatch(push('/schedule'));
     });
+  }}
+  else{
+    return async (dispatch, getState) => {
+
+      const state = getState()
+      const userId = state.users.id
+  
+      const data = {
+        schedule:{
+          date: "2020-05-23",
+          time: time,
+        }
+      }
+  
+      const token = state.users.accessToken
+      const uid = state.users.uid
+      const client = state.users.client
+  
+      axios({
+        method: 'delete',
+        url: 'http://localhost:3001/rooms/1/schedules/'+elementId,
+        headers: {
+          ["access-token"]: token,
+          uid: uid,
+          client: client,
+          //["Content-Type"]: "application/json"
+        },
+        data
+  
+      })
+      .then(snapshots => {
+        console.log(snapshots)
+        dispatch(push('/'))
+        dispatch(push('/schedule'));
+      });
+    }
   }
 }
 
@@ -67,7 +107,6 @@ export const fetchSchedules = () => {
       };
 
       dispatch(fetchSchedulesAction(scheduleList))
-
     });
   }
 }

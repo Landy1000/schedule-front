@@ -22,7 +22,6 @@ const ScheduleEdit = () => {
     }
 
     const dispatch = useDispatch()
-    // const [schedules, setSchedules] = useState([]);
     
     // const inputRoomName = useCallback((event) => {
     //   setRoomName(event.target.value)
@@ -54,13 +53,13 @@ const ScheduleEdit = () => {
       let bool = false
       mySchedules.forEach(element => {
         if (element.time===i){
-          my.push({id: i, text: "○", style: "ok"})
+          my.push({id: i, text: "true", style: "ok my-schedule", elementId: element.id})
           bool = true
         }
         
       });
       if (!bool)
-        my.push({id: i, text: "×", style: "ng"})
+        my.push({id: i, text: "false", style: "ng my-schedule"})
     }
 
     const roomMates = [];
@@ -68,19 +67,20 @@ const ScheduleEdit = () => {
       let bool = false
       roomMatesSchedules.forEach(element => {
         if (element.time===i){
-          roomMates.push({id: i, text: "○", style: "ok"})
+          roomMates.push({id: i, text: "○", style: "ok room-mates-schedule"})
           bool = true
         }
         
       });
       if (!bool)
-        roomMates.push({id: i, text: "×", style: "ng"})
+        roomMates.push({id: i, text: "×", style: "ng room-mates-schedule"})
     }
 
     
     return (
   
     <div className="c-section-container">
+      <h1>2020-5-23</h1>
       <div className="test-container">
         <div className="test-container2">
           <div className="time-var">
@@ -97,14 +97,14 @@ const ScheduleEdit = () => {
             {my.length > 0 && (
                 my.map(time => (
                   <div key={time.id} className={time.style} >
-                    
+                    <button className={time.style} onClick={() => dispatch(editSchedule(time.id, time.elementId, time.text))}></button>
                   </div>
                 ))
               )}
           </div>
 
         <div className="test-container2">
-          <div className="time">user2</div>
+          <div className="time">friend schedule</div>
           {roomMates.length > 0 && (
                 roomMates.map(time => (
                   <div key={time.id} className={time.style} >
@@ -114,7 +114,7 @@ const ScheduleEdit = () => {
               )}
         </div>
 
-        <div className="test-container2">
+        {/* <div className="test-container2">
             <div className="time">user</div>
             {times.length > 0 && (
                 times.map(time => (
@@ -127,7 +127,7 @@ const ScheduleEdit = () => {
                   </div>
                 ))
               )}
-          </div>
+          </div> */}
 
       </div>
       <ul>
