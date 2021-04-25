@@ -2,51 +2,41 @@ import React ,{useCallback, useState, useEffect} from 'react';
 // import { signIn } from '../../reducks/users/operations';
 import {PrimaryButton, SelectBox, TextInput} from "../UIkit"
 import { useDispatch, useSelector } from 'react-redux';
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 import { createRoom } from '../../reducks/rooms/operations';
 import { editSchedule, fetchSchedules } from '../../reducks/schedules/operations';
 import { getMySchedules } from "../../reducks/schedules/selectors";
+import { getUserId } from "../../reducks/users/selectors";
 
 
 const ScheduleEdit = () => {
+  const { id } = useParams()
+  const { date } = useParams()
   
-    const items = [];
-    for (let i = 0; i <24; i++) {
-      items.push( {id: i, text: i+":00"} )
-    }
+  const timeVar = [];
+  for (let i = 0; i <24; i++) {
+    timeVar.push( {id: i, text: i+":00"} )
+  }
 
-    const times = [];
-    for (let i = 0; i <24; i++) {
-      times.push( i )
-    }
+  const dispatch = useDispatch()
+  useEffect( () => {
+      dispatch(fetchSchedules())
+  }, []);
 
-    const dispatch = useDispatch()
-    
-    // const inputRoomName = useCallback((event) => {
-    //   setRoomName(event.target.value)
-    // },[]);
+  const mySchedules = []
+  const roomMatesSchedules = []
 
-    // const selector = useSelector(state => state)
-    // // const username = getUserName(selector)
-    // const friends = getFriends(selector)
+  const selector = useSelector(state => state)
+  const schedules = getMySchedules(selector)
+  const userId = getUserId(selector)
 
-    useEffect( () => {
-        dispatch(fetchSchedules())
-    }, []);
-
-    const mySchedules = []
-    const roomMatesSchedules = []
-
-    const selector = useSelector(state => state)
-    const schedules = getMySchedules(selector)
-
-    schedules.forEach(element => {
-      if (element.user_id===1)
-      mySchedules.push(element)
-      else
-      roomMatesSchedules.push(element)
-    });
+  schedules.forEach(schedule => {
+    if (schedule.user_id === userId)
+      mySchedules.push(schedule)
+    else
+      roomMatesSchedules.push(schedule)
+  });
 
     const my = [];
     for (let i = 0; i <24; i++) {
@@ -80,13 +70,13 @@ const ScheduleEdit = () => {
     return (
   
     <div className="c-section-container">
-      <h1>2020-5-23</h1>
+      <h1>{date}</h1>
       <div className="test-container">
         <div className="test-container2">
           <div className="time-var">
           </div>
-            {items.length > 0 && (
-              items.map(item => (
+            {timeVar.length > 0 && (
+              timeVar.map(item => (
                   <div className="time-var" key={item.id}>{item.text}</div>
               ))
             )}
@@ -97,14 +87,14 @@ const ScheduleEdit = () => {
             {my.length > 0 && (
                 my.map(time => (
                   <div key={time.id} className={time.style} >
-                    <button className={time.style} onClick={() => dispatch(editSchedule(time.id, time.elementId, time.text))}></button>
+                    <button className={time.style} onClick={() => dispatch(editSchedule(date, time.id, time.elementId, id, time.text))}></button>
                   </div>
                 ))
               )}
           </div>
 
         <div className="test-container2">
-          <div className="time">friend schedule</div>
+          <div className="time-room-mates">friend schedule</div>
           {roomMates.length > 0 && (
                 roomMates.map(time => (
                   <div key={time.id} className={time.style} >
@@ -113,25 +103,10 @@ const ScheduleEdit = () => {
                 ))
               )}
         </div>
-
-        {/* <div className="test-container2">
-            <div className="time">user</div>
-            {times.length > 0 && (
-                times.map(time => (
-                  <div key={time}>
-                    <PrimaryButton
-                    label={"○"}
-                    onClick={() => dispatch(editSchedule(time))}
-                    />
-
-                  </div>
-                ))
-              )}
-          </div> */}
-
       </div>
+
       <ul>
-        <li><Link to="/room/">ルームに戻る</Link></li>
+        <li><Link to={"/room/"+id}>ルームに戻る</Link></li>
       </ul>
 
     </div>

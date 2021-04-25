@@ -40,9 +40,7 @@ const RoomEdit = () => {
           label={"ルームメイトを選択"} required={true} options={friends} select={setRoomMate} value={roomMate}
         />
       </div>
-      {
-      console.log(roomMate)
-      }
+      
       <div className="center">
         <PrimaryButton
           label={"ルームを作る"}

@@ -2,7 +2,7 @@ import { fetchSchedulesAction } from "./actions"
 import {push} from 'connected-react-router'
 import axios from 'axios';
 
-export const editSchedule = (time, elementId, text) => {
+export const editSchedule = (date, time, elementId, roomId, text) => {
   if (text==="false"){
   return async (dispatch, getState) => {
 
@@ -11,7 +11,7 @@ export const editSchedule = (time, elementId, text) => {
 
     const data = {
       schedule:{
-        date: "2020-05-23",
+        date: date,
         time: time,
       }
     }
@@ -25,7 +25,7 @@ export const editSchedule = (time, elementId, text) => {
 
     axios({
       method: 'post',
-      url: 'http://localhost:3001/rooms/1/schedules',
+      url: 'http://localhost:3001/rooms/'+roomId+'/schedules',
       headers: {
         ["access-token"]: token,
         uid: uid,
@@ -39,7 +39,7 @@ export const editSchedule = (time, elementId, text) => {
       
       console.log(snapshots)
       dispatch(push('/'))
-      dispatch(push('/schedule'));
+      dispatch(push('/room/'+roomId+'/'+date));
     });
   }}
   else{
@@ -74,7 +74,7 @@ export const editSchedule = (time, elementId, text) => {
       .then(snapshots => {
         console.log(snapshots)
         dispatch(push('/'))
-        dispatch(push('/schedule'));
+        dispatch(push('/room/'+roomId+'/'+date));
       });
     }
   }

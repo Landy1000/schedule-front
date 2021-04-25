@@ -31,8 +31,8 @@ const Router = () => {
         <Route path="/signin/" exact component={SignIn} />
         <Route path="/" exact component={requireSignIn(Home)} />
         <Route path="/room/edit" exact component={requireSignIn(RoomEdit)} />
+        <Route path="/room/:id/:date" component={requireSignIn(ScheduleEdit)} />
         <Route path="/room/:id" component={Room} />
-        <Route path="/schedule" component={requireSignIn(ScheduleEdit)} />
         <Route path="/test" component={Test} />
       </Switch>
   );

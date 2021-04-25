@@ -67,7 +67,10 @@ export default class Room extends React.Component {
         />
 
         <div>
-          <Link to="/schedule">テスト</Link>
+          <Link to="/room/1/2020-05-23">テスト</Link>
+        </div>
+        <div>
+          <Link to="/">ルーム選択に戻る</Link>
         </div>
         <DatePicker
         locale="ja"

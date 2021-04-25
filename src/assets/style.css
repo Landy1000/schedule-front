@@ -182,16 +182,28 @@
   margin-bottom: 1px;
   width: 100px;
   text-align: right;
+  margin-right: 5px;
 }
 
 .time {
-  background-color: red;
+  background-color: lightslategrey;
   color: "#000";
   font-size: 16px;
   height: 63px;
   margin-bottom: 1px;
   width: 200px;
   text-align: center;
+}
+
+.time-room-mates {
+  background-color: lightslategrey;
+  color: "#000";
+  font-size: 16px;
+  height: 63px;
+  margin-bottom: 1px;
+  width: 100px;
+  text-align: center;
+  margin-left: 5px;
 }
 
 .ok{
@@ -218,7 +230,7 @@
 
 .room-mates-schedule{
   width: 100px;
-  margin-left: 50px;
+  margin-left: 5px;
 }
 
 .test-container{
