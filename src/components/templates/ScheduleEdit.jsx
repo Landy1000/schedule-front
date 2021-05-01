@@ -7,7 +7,6 @@ import { getRoomSchedules } from "../../reducks/schedules/selectors";
 import { getRoommates } from "../../reducks/roommates/selectors";
 import { getUserId, getUserName } from "../../reducks/users/selectors";
 import { push } from 'connected-react-router'
-import { Schedule } from '@material-ui/icons';
 
 
 const ScheduleEdit = () => {
