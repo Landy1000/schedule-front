@@ -9,7 +9,8 @@ import {connectRouter, routerMiddleware} from 'connected-react-router';
 import {UsersReducer} from '../users/reducers';
 import {RoomsReducer} from '../rooms/reducers';
 import {FriendsReducer} from '../friends/reducers';
-import {SchedulesReducer} from '../schedules/reducers';
+import { SchedulesReducer } from '../schedules/reducers';
+import { RoommatesReducer } from '../roommates/reducers';
 
 export default function createStore(history){
   return reduxCreateStore(
@@ -18,7 +19,8 @@ export default function createStore(history){
       users: UsersReducer,
       myRooms: RoomsReducer,
       friends: FriendsReducer,
-      schedules: SchedulesReducer
+      schedules: SchedulesReducer,
+      roommates: RoommatesReducer
     }),
     applyMiddleware(
       routerMiddleware(history),

@@ -2,7 +2,7 @@ import { createSelector } from "reselect";
 
 const schedulesSelector = (state) => state.schedules;
 
-export const getMySchedules = createSelector(
+export const getRoomSchedules = createSelector(
   [schedulesSelector],
   state => state.list
 )

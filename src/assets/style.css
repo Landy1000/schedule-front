@@ -195,27 +195,43 @@
   text-align: center;
 }
 
-.time-room-mates {
+
+
+.time-roommates {
   background-color: lightslategrey;
-  color: "#000";
+  color: white;
   font-size: 16px;
   height: 63px;
-  margin-bottom: 1px;
   width: 100px;
   text-align: center;
   margin-left: 5px;
 }
 
-.ok{
-  background-color: lightpink;
+.match100{
+  background-color: #00ffff;
   color: "#000";
   font-size: 16px;
   height: 63px;
   margin-bottom: 1px;
   text-align: right;
 }
-
-.ng{
+.match50{
+  background-color: #aaffff;
+  color: "#000";
+  font-size: 16px;
+  height: 63px;
+  margin-bottom: 1px;
+  text-align: right;
+}
+.match25{
+  background-color: #eaffff;
+  color: "#000";
+  font-size: 16px;
+  height: 63px;
+  margin-bottom: 1px;
+  text-align: right;
+}
+.match0{
   background-color: lightgray;
   color: "#000";
   font-size: 16px;
@@ -228,7 +244,7 @@
   width: 200px;
 }
 
-.room-mates-schedule{
+.roommates-schedule{
   width: 100px;
   margin-left: 5px;
 }

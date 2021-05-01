@@ -1,91 +1,62 @@
-import React from 'react';
-import Calendar from 'react-calendar';
-import { Link } from "react-router-dom";
-import DatePicker, { registerLocale } from "react-datepicker";
+import React,{useCallback, useState, useEffect} from 'react';
+import {Link, useParams} from "react-router-dom";
+import Calendar from 'react-calendar'
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
+import {push} from 'connected-react-router'
+import { useDispatch, useSelector } from 'react-redux';
 
 
-export default class Room extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: new Date(2019, 4, 17),
-      //月のデータ
-      month_days: {
-        20190501: { is_holiday: true },
-        20190502: { is_holiday: true },
-        20190503: { is_holiday: true },
-        20190506: { is_holiday: true },
-        // 20190514: { text: 'バシャログ執筆' },
-        // 20190517: { text: 'バシャログ出稿' }
-      }
-    };
-    this.getTileClass = this.getTileClass.bind(this);
-    this.getTileContent = this.getTileContent.bind(this);
-  }
-
-  // state の日付と同じ表記に変換
-  getFormatDate(date) {
-    return `${date.getFullYear()}${('0' + (date.getMonth() + 1)).slice(-2)}${('0' + date.getDate()).slice(-2)}`;
-  }
-
-  //日付のクラスを付与 (祝日用)
-  getTileClass({ date, view }) {
-    // 月表示のときのみ
-    if (view !== 'month') {
-      return '';
+const Room = () => {
+    const { id } = useParams()
+    const dispatch = useDispatch()
+    const initialDate = new Date()
+    const [startDate, setStartDate] = useState(initialDate)
+    const handleChange = (date) => {
+        setStartDate(date)
     }
-    const day = this.getFormatDate(date);
-    return (this.state.month_days[day] && this.state.month_days[day].is_holiday) ?
-      'holiday' : '';
-  }
 
-  //日付の内容を出力
-  getTileContent({ date, view }) {
-    // 月表示のときのみ
-    if (view !== 'month') {
-      return null;
+    const editSchedules = () => {
+        dispatch(push("/room/"+id+"/"+getStringFromDate(startDate)))
     }
-    const day = this.getFormatDate(date);
-    return (
-      <p>
-        <br />
-        {(this.state.month_days[day] && this.state.month_days[day].text) ?
-          this.state.month_days[day].text : ' '
-        }
-      </p>
-    );
-  }
 
-  render() {
-    return (
-      <div className="c-section-container">
-        <Calendar
-          locale="ja-JP"
-          value={this.state.date}
-          tileClassName={this.getTileClass}
-          tileContent={this.getTileContent}
-        />
+    // date型の変換
+    const getStringFromDate = (date)=>{
+        const year_str = date.getFullYear();
+        //月だけ+1すること
+        let month_str = 1 + date.getMonth();
+        let day_str = date.getDate();
 
-        <div>
-          <Link to="/room/1/2020-05-23">テスト</Link>
+        month_str = ('0' + month_str).slice(-2);
+        day_str = ('0' + day_str).slice(-2);
+
+        let format_str = 'YYYY-MM-DD';
+        format_str = format_str.replace(/YYYY/g, year_str);
+        format_str = format_str.replace(/MM/g, month_str);
+        format_str = format_str.replace(/DD/g, day_str);
+        return format_str;
+    }
+
+    return(
+        <div className="c-section-container">
+            <h1 className="u-text_headline u-text-center">ようこそ</h1>
+            <div className="center">
+            <Link to={"/room/"+id+"/2020-05-23"}>edit</Link>
+            <Link to={"/"}>ホーム</Link>
+            </div>
+            <Calendar
+                locale="ja-JP"
+                value={startDate}
+            />
+            <div className="center">
+                <DatePicker
+                    selected={startDate}
+                    onChange={handleChange}
+                />
+                <button type="button" onClick={editSchedules} >スケジュール登録</button>
+            </div>
         </div>
-        <div>
-          <Link to="/">ルーム選択に戻る</Link>
-        </div>
-        <DatePicker
-        locale="ja"
-        dateFormat="yyyy/MM/d HH:mm"
-        //selected={inputStart}
-        showTimeSelect
-        timeFormat="HH:mm"
-        timeIntervals={10}
-        todayButton="today"
-        name="inputStart"
-        //onChange={(time: Date) => {
-          //setInputStart(time)
-        //}}
-      />
-      </div>
     );
-  }
 }
+
+export default Room;

@@ -22,7 +22,7 @@ const SelectBox = (props) => {
     <FormControl className={classes.formControl}>
       <InputLabel>{props.label}</InputLabel>
       <Select
-        required={props.required} value={props.value}
+        required={props.required} value={props.value} multiple
         onChange={(event) => props.select(event.target.value)}
       >
         {props.options.map((option) => (

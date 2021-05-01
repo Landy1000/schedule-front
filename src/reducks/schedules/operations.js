@@ -1,9 +1,10 @@
 import { fetchSchedulesAction } from "./actions"
+import { fetchRoommatesAction } from "../roommates/actions"
 import {push} from 'connected-react-router'
 import axios from 'axios';
 
-export const editSchedule = (date, time, elementId, roomId, text) => {
-  if (text==="false"){
+export const editSchedule = (date, time, elementId, roomId, bool) => {
+  if (!bool){
   return async (dispatch, getState) => {
 
     const state = getState()
@@ -15,8 +16,6 @@ export const editSchedule = (date, time, elementId, roomId, text) => {
         time: time,
       }
     }
-
-    console.log(data)
 
     const token = state.users.accessToken
     const uid = state.users.uid
@@ -50,7 +49,7 @@ export const editSchedule = (date, time, elementId, roomId, text) => {
   
       const data = {
         schedule:{
-          date: "2020-05-23",
+          date: date,
           time: time,
         }
       }
@@ -61,7 +60,7 @@ export const editSchedule = (date, time, elementId, roomId, text) => {
   
       axios({
         method: 'delete',
-        url: 'http://localhost:3001/rooms/1/schedules/'+elementId,
+        url: 'http://localhost:3001/rooms/'+roomId+'/schedules/'+elementId,
         headers: {
           ["access-token"]: token,
           uid: uid,
@@ -71,8 +70,7 @@ export const editSchedule = (date, time, elementId, roomId, text) => {
         data
   
       })
-      .then(snapshots => {
-        console.log(snapshots)
+      .then(() => {
         dispatch(push('/'))
         dispatch(push('/room/'+roomId+'/'+date));
       });
@@ -81,7 +79,7 @@ export const editSchedule = (date, time, elementId, roomId, text) => {
 }
 
 
-export const fetchSchedules = () => {
+export const fetchSchedules = (roomId) => {
 
   return async (dispatch, getState) => {
     const state = getState()
@@ -90,7 +88,7 @@ export const fetchSchedules = () => {
     const client = state.users.client
     axios({
       method: 'get',
-      url: 'http://localhost:3001/rooms/1/schedules',
+      url: 'http://localhost:3001/rooms/'+roomId+'/schedules',
       headers: {
         ["access-token"]: token,
         uid: uid,
@@ -99,14 +97,23 @@ export const fetchSchedules = () => {
       }
     })
     .then(snapshots => {
-      const data = snapshots.data
+      const schedules = snapshots.data.schedules
+      const roommates = snapshots.data.roommates
+      
       const scheduleList = []
-      for (const item in data) {
-        const room = data[item]
-        scheduleList.push(room)
+      for (const item in schedules) {
+        const schedule = schedules[item]
+        scheduleList.push(schedule)
+      };
+
+      const roommateList = []
+      for (const item in roommates) {
+        const roommate = roommates[item]
+        roommateList.push(roommate)
       };
 
       dispatch(fetchSchedulesAction(scheduleList))
+      dispatch(fetchRoommatesAction(roommateList))
     });
   }
 }

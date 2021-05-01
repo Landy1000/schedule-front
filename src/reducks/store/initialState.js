@@ -15,7 +15,10 @@ const initialState = {
   },
   schedules: {
     list: []
-  }
+  },
+  roommates: {
+    list: []
+  },
 }
 
 export default initialState

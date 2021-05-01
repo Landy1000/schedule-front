@@ -8,7 +8,7 @@ export const createRoom = (name, user_ids) => {
     const state = getState()
     const userId = state.users.id
 
-    const list = [user_ids]
+    const list = user_ids
     list.push(userId)
     console.log(list)
     const data = {
