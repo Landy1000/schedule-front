@@ -22,11 +22,10 @@ const Room = () => {
     const dispatch = useDispatch()
     const initialDate = new Date()
     const [startDate, setStartDate] = useState(initialDate)
+
     const handleChange = (date) => {
         setStartDate(date)
     }
-    
-
 
     const editSchedules = () => {
         dispatch(push("/room/"+id+"/"+getStringFromDate(startDate)))
@@ -56,8 +55,6 @@ const Room = () => {
 
     const selector = useSelector(state => state)
     const scheduleList = getRoomSchedules(selector)
-    //const userId = getUserId(selector)
-    //const username = getUserName(selector)
     const roommates = getRoommates(selector)
 
     // 月を決定
@@ -86,7 +83,7 @@ const Room = () => {
             })
             if (count === numberOfPeople)
                 temp.push("match100")
-            else if (count > numberOfPeople/2)
+            else if (count >= numberOfPeople/2)
                 temp.push("match50")
             else if (count > 0)
                 temp.push("match25")
@@ -115,7 +112,6 @@ const Room = () => {
                         <p>{match[targetDate]}</p>
                 </div>
                 : null
-    
         };
 
     return(
@@ -137,7 +133,7 @@ const Room = () => {
             <div className="center">
                 <DatePicker
                     selected={startDate}
-                    onChange={handleChange}
+                    onChange={date => setStartDate(date)} 
                 />
                 <button type="button" onClick={editSchedules} >スケジュール登録</button>
             </div>

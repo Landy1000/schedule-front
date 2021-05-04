@@ -1,8 +1,7 @@
 import React ,{useCallback, useState, useEffect} from 'react';
-// import { signIn } from '../../reducks/users/operations';
 import {PrimaryButton, SelectBox, TextInput} from "../UIkit"
 import { useDispatch, useSelector } from 'react-redux';
-import {Link} from "react-router-dom";
+//import {Link} from "react-router-dom";
 
 import { createRoom } from '../../reducks/rooms/operations';
 import { fetchFriends } from '../../reducks/friends/operations';
@@ -18,14 +17,11 @@ const RoomEdit = () => {
 
   const dispatch = useDispatch()
   const selector = useSelector(state => state)
-  // const username = getUserName(selector)
   const friends = getFriends(selector)
 
   useEffect( () => {
       dispatch(fetchFriends())
   }, []);
-
-  console.log(friends)
 
   return (
     <section>

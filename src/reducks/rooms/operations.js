@@ -1,6 +1,32 @@
-import { fetchMyRoomsAction } from "./actions"
+import { fetchMyRoomsAction, deleteRoomAction } from "./actions"
 import {push} from 'connected-react-router'
 import axios from 'axios';
+
+export const deleteRoom = (id) => {
+  return async (dispatch, getState) => {
+    const state = getState()
+    const token = state.users.accessToken
+    const uid = state.users.uid
+    const client = state.users.client
+
+    axios({
+      method: 'delete',
+      url: 'http://localhost:3001/rooms/'+id,
+      headers: {
+        ["access-token"]: token,
+        uid: uid,
+        client: client,
+        //["Content-Type"]: "application/json"
+      },
+
+    })
+    .then(() => {
+        const prevRooms = getState().myRooms.list;
+        const nextRooms = prevRooms.filter(room => room.id !== id)
+        dispatch(deleteRoomAction(nextRooms));
+    });
+  }
+}
 
 export const createRoom = (name, user_ids) => {
   return async (dispatch, getState) => {
@@ -10,7 +36,6 @@ export const createRoom = (name, user_ids) => {
 
     const list = user_ids
     list.push(userId)
-    console.log(list)
     const data = {
       room:{
         name: name,

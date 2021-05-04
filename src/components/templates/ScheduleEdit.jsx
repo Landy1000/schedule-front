@@ -55,7 +55,7 @@ const ScheduleEdit = () => {
     })
     if (count === numberOfPeople)
       match.push("match100")
-    else if (count > numberOfPeople/2)
+    else if (count >= numberOfPeople/2)
       match.push("match50")
     else if (count > 0)
       match.push("match25")
