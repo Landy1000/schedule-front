@@ -1,11 +1,11 @@
 const initialState = {
   users: {
     isSignedIn: false,
-      accessToken: "",
-      client: "",
-      uid: "",
-      username: "",
-      id: ""
+    accessToken: "",
+    client: "",
+    uid: "",
+    username: "",
+    id: ""
   },
   myRooms: {
     list: []

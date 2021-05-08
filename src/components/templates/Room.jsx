@@ -1,21 +1,13 @@
-
-import {Link, useParams} from "react-router-dom";
+import React ,{ useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
-
-
-import React ,{useCallback, useState, useEffect} from 'react';
 import { PrimaryButton } from "../UIkit"
 import { useDispatch, useSelector } from 'react-redux';
-import { editSchedule, fetchSchedules } from '../../reducks/schedules/operations';
+import { fetchSchedules } from '../../reducks/schedules/operations';
 import { getRoomSchedules } from "../../reducks/schedules/selectors";
 import { getRoommates } from "../../reducks/roommates/selectors";
-import { getUserId, getUserName } from "../../reducks/users/selectors";
 import { push } from 'connected-react-router'
-
-
 
 const Room = () => {
     const { id } = useParams()
@@ -114,13 +106,24 @@ const Room = () => {
                 : null
         };
 
+        // カレンダーの矢印を押した際の動作
+        const nextMonth = () => {
+            const year = startDate.getFullYear();
+            const month = (startDate.getMonth()+1);
+            const nextDate = new Date(year, month, 1)
+            setStartDate(nextDate)
+        }
+
+        const prevMonth = () => {
+            const year = startDate.getFullYear();
+            const month = (startDate.getMonth()-1);
+            const prevDate = new Date(year, month, 1)
+            if (startDate !== -1 )
+                setStartDate(prevDate)
+        }
+
     return(
         <div className="c-section-container">
-            <h1 className="u-text_headline u-text-center">ようこそ</h1>
-            <div className="center">
-            <Link to={"/room/"+id+"/2020-05-23"}>edit</Link>
-            <Link to={"/"}>ホーム</Link>
-            </div>
             <Calendar
                 locale="ja-JP"
                 value={startDate}
@@ -128,14 +131,15 @@ const Room = () => {
                 tileContent={getTileContent}
                 prev2Label={null}
                 next2Label={null}
+                nextLabel={<div className="calender-btn" onClick={nextMonth}>&gt;</div>}
+                prevLabel={<div className="calender-btn" onClick={prevMonth}>&lt;</div>}
             />
             <br />
             <div className="center">
-                <DatePicker
-                    selected={startDate}
-                    onChange={date => setStartDate(date)} 
+                <PrimaryButton
+                label={"スケジュール登録"}
+                onClick={editSchedules}
                 />
-                <button type="button" onClick={editSchedules} >スケジュール登録</button>
             </div>
         </div>
     );

@@ -21,7 +21,6 @@ const SignIn = () => {
   return(
 
       <div className="c-section-container">
-        <Link to="/signup/">アカウント登録</Link>
         <h2 className="u-text_headline u-text-center">ログイン</h2>
         <TextInput
         fullWidth={true} label={"Email"} multiline={false} required={true}
@@ -32,10 +31,17 @@ const SignIn = () => {
         rows={1} value={password} type={"password"} onChange={inputPassword}
         />
         <div className="center">
+          <br/>
           <PrimaryButton
             label={"ログイン"}
             onClick={() => dispatch(signIn(email, password))}
           />
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <div className="right">
+          <Link to="/signup/">アカウント登録はこちら</Link>
         </div>
       </div>
   );

@@ -1,8 +1,6 @@
 import React ,{useCallback, useState, useEffect} from 'react';
 import {PrimaryButton, SelectBox, TextInput} from "../UIkit"
 import { useDispatch, useSelector } from 'react-redux';
-//import {Link} from "react-router-dom";
-
 import { createRoom } from '../../reducks/rooms/operations';
 import { fetchFriends } from '../../reducks/friends/operations';
 import { getFriends } from "../../reducks/friends/selectors";
@@ -28,7 +26,7 @@ const RoomEdit = () => {
       <h2 className="u-text_headline u-text-center">新規ルーム作成</h2>
       <div className="c-section-container">
       <TextInput
-        fullWidth={true} label={"ルーム名"} multiline={false} required={true}
+        fullWidth={true} label={"ルーム名（16文字まで）"} multiline={false} required={true}
         rows={1} value={roomName} type={"text"} onChange={inputRoomName}
         />
 

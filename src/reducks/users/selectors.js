@@ -11,3 +11,8 @@ export const getUserId = createSelector(
   [usersSelector],
   state => state.id
 )
+
+export const getIsSignedIn = createSelector(
+  [usersSelector],
+  state => state.isSignedIn
+)

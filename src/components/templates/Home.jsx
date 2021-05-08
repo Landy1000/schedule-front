@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from "react-router-dom";
 import { getUserName } from "../../reducks/users/selectors";
-import { PrimaryButton, RoomCard } from "../UIkit"
+import { RoomCard } from "../UIkit"
 import { useDispatch } from 'react-redux';
-import { signOut } from '../../reducks/users/operations';
 import { fetchMyRooms } from '../../reducks/rooms/operations';
 import { getMyRooms } from "../../reducks/rooms/selectors";
-
+import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined';
+import {push} from 'connected-react-router'
 
 
 function Home() {
     const dispatch = useDispatch()
-    
+    // リンク
+    const createRoom = () => {
+        dispatch(push("/room/edit"))
+    }
 
     useEffect( () => {
         dispatch(fetchMyRooms())
@@ -25,27 +27,26 @@ function Home() {
     return(
         <div className="c-section-container">
             <h1 className="u-text_headline u-text-center">ようこそ、{username}さん</h1>
-            <div className="center">
-                <Link to="/room/edit">新規ルーム作成</Link>
-            </div>
-
+            <br/>
             <div className="center">
                 {myRooms.length > 0 && (
                     myRooms.map(myRoom => (
                         <>
-                        <RoomCard
-                            id={myRoom.id}
-                            name={myRoom.name}
-                        />
-                        <br/>
+                            <RoomCard
+                                id={myRoom.id}
+                                name={myRoom.name}
+                            />
+                            <br/>
                         </>
                     ))
                 )}
             </div>
             <div className="center">
-                <PrimaryButton
-                    label={"ログアウト"}
-                    onClick={() => dispatch(signOut())}
+                <br/>
+                <AddCircleOutlinedIcon
+                    onClick={createRoom}
+                    fontSize="large"
+                    style={{ color: "#4dd0e1", fontSize: 50 }}
                 />
             </div>
         </div>

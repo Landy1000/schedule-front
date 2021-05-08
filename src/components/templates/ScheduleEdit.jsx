@@ -1,4 +1,4 @@
-import React ,{useCallback, useState, useEffect} from 'react';
+import React ,{ useEffect } from 'react';
 import { PrimaryButton } from "../UIkit"
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
@@ -132,36 +132,39 @@ const ScheduleEdit = () => {
     return (
   
     <div className="c-section-container">
-      <h1>{date}</h1>
+      <h1 className="center">{date}</h1>
+      <br/>
       <div className="test-container">
+        {/* タイムバー */}
         <div className="test-container2">
           <div className="time-var">
           </div>
-            {timeVar.length > 0 && (
-              timeVar.map(item => (
-                  <div className="time-var" key={item.id}>{item.text}</div>
+          {timeVar.length > 0 && (
+            timeVar.map(item => (
+                <div className="time-var" key={item.id}>{item.text}</div>
+            ))
+          )}
+        </div>
+        {/* ユーザーバー */}
+        <div className="test-container2">
+          <div className="time">{username}</div>
+          {myScheduleList.length > 0 && (
+              myScheduleList.map(mySchedule => (
+                <div key={mySchedule.id} className={mySchedule.style} >
+                  <button className={mySchedule.style} onClick={() => dispatch(editSchedule(date, mySchedule.id, mySchedule.elementId, id, mySchedule.bool))}></button>
+                </div>
               ))
             )}
         </div>
-      
-          <div className="test-container2">
-            <div className="time">{username}</div>
-            {myScheduleList.length > 0 && (
-                myScheduleList.map(mySchedule => (
-                  <div key={mySchedule.id} className={mySchedule.style} >
-                    <button className={mySchedule.style} onClick={() => dispatch(editSchedule(date, mySchedule.id, mySchedule.elementId, id, mySchedule.bool))}></button>
-                  </div>
-                ))
-              )}
-          </div>
-
-          <div>
-            <div className="test-container">{roomIndex}</div>
-            <div className="test-container">{html}</div>
-          </div>
+        {/* ルームメイトバー */}
+        <div>
+          <div className="test-container">{roomIndex}</div>
+          <div className="test-container">{html}</div>
         </div>
+      </div>
 
       <div className="center">
+        <br/>
         <PrimaryButton
           label={"ルームに戻る"}
           onClick={returnRoom}

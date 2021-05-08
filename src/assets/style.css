@@ -187,28 +187,28 @@
 
 .time {
   background-color: lightslategrey;
-  color: "#000";
+  color: white;
   font-size: 16px;
   height: 63px;
+  line-height:63px;
   margin-bottom: 1px;
   width: 200px;
   text-align: center;
 }
-
-
 
 .time-roommates {
   background-color: lightslategrey;
   color: white;
   font-size: 16px;
   height: 63px;
-  width: 100px;
+  width: 200px;
   text-align: center;
+  line-height:63px;
   margin-left: 5px;
 }
 
 .match100{
-  background-color: #00ffff;
+  background-color: #00eaef;
   color: "#000";
   font-size: 16px;
   height: 63px;
@@ -216,7 +216,7 @@
   text-align: right;
 }
 .match50{
-  background-color: #aaffff;
+  background-color: #9ce4ff;
   color: "#000";
   font-size: 16px;
   height: 63px;
@@ -224,7 +224,7 @@
   text-align: right;
 }
 .match25{
-  background-color: #eaffff;
+  background-color: #d7e9ef;
   color: "#000";
   font-size: 16px;
   height: 63px;
@@ -232,7 +232,7 @@
   text-align: right;
 }
 .match0{
-  background-color: lightgray;
+  background-color: #d9d9db;
   color: "#000";
   font-size: 16px;
   height: 63px;
@@ -245,13 +245,15 @@
 }
 
 .roommates-schedule{
-  width: 100px;
+  width: 200px;
   margin-left: 5px;
 }
 
 .test-container{
   display: flex;
   justify-content: center;
+  margin: '0 auto';
+  max-width: 1024px;
 }
 
 .test-container2{
@@ -259,3 +261,20 @@
   flex-direction: column;
 }
 
+.calender-btn{
+  width: 44px;
+  height: 44px;
+  line-height:44px;
+  text-align:center;
+}
+
+.right {
+  margin: 0 auto;
+  text-align: right;
+}
+
+.room-card {
+  height: 40px;
+  text-align: center;
+  line-height:40px;
+}
