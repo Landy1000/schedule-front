@@ -174,7 +174,7 @@
 
 /* original */
 
-.time-var {
+.time-bar {
   background-color: lightgrey;
   color: "#000";
   font-size: 16px;
@@ -185,23 +185,23 @@
   margin-right: 5px;
 }
 
-.time {
+.my-name {
   background-color: lightslategrey;
   color: white;
   font-size: 16px;
   height: 63px;
   line-height:63px;
   margin-bottom: 1px;
-  width: 200px;
+  width: 100px;
   text-align: center;
 }
 
-.time-roommates {
+.roommates-name {
   background-color: lightslategrey;
   color: white;
   font-size: 16px;
   height: 63px;
-  width: 200px;
+  width: 100px;
   text-align: center;
   line-height:63px;
   margin-left: 5px;
@@ -241,19 +241,17 @@
 }
 
 .my-schedule{
-  width: 200px;
+  width: 100px;
 }
 
 .roommates-schedule{
-  width: 200px;
+  width: 100px;
   margin-left: 5px;
 }
 
 .test-container{
   display: flex;
   justify-content: center;
-  margin: '0 auto';
-  max-width: 1024px;
 }
 
 .test-container2{
@@ -277,4 +275,17 @@
   height: 40px;
   text-align: center;
   line-height:40px;
+}
+
+.table_wrap {
+  display: flex;
+  justify-content: left;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.text-left{
+  text-align:left;
+  padding-left: 10px;
+  font-size: large;
 }

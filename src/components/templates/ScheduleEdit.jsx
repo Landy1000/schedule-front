@@ -77,77 +77,79 @@ const ScheduleEdit = () => {
       roomMatesSchedules.push(schedule)
   });
 
-    const myScheduleList = [];
+  // マイスケジュールとマッチ率の合成
+  const myScheduleList = [];
+  for (let i = 0; i <24; i++) {
+    let bool = false
+    mySchedules.forEach(element => {
+      if (element.time===i){
+        myScheduleList.push({id: i, bool: true, style: match[i]+" my-schedule", elementId: element.id})
+        bool = true
+      }
+      
+    });
+    if (!bool)
+      myScheduleList.push({id: i, bool: false, style: "match0 my-schedule"})
+  }
+
+  // ルームメイトスケジュールとマッチ率の合成
+  const roomMatesScheduleList = [];
+  roommates.forEach(roommate => {
+    let tempList = [];
     for (let i = 0; i <24; i++) {
       let bool = false
-      mySchedules.forEach(element => {
-        if (element.time===i){
-          myScheduleList.push({id: i, bool: true, style: match[i]+" my-schedule", elementId: element.id})
+      roomMatesSchedules.forEach(element => {
+        if (element.time===i && roommate.id===element.user_id){
+          tempList.push({id: i, text: "○", style: match[i]+" roommates-schedule"})
           bool = true
         }
         
       });
       if (!bool)
-        myScheduleList.push({id: i, bool: false, style: "match0 my-schedule"})
+        tempList.push({id: i, text: "×", style: "match0 roommates-schedule"})
     }
+    roomMatesScheduleList.push(tempList)
+  })
 
-    const roomMatesScheduleList = [];
-    roommates.forEach(roommate => {
-      let tempList = [];
-      for (let i = 0; i <24; i++) {
-        let bool = false
-        roomMatesSchedules.forEach(element => {
-          if (element.time===i && roommate.id===element.user_id){
-            tempList.push({id: i, text: "○", style: match[i]+" roommates-schedule"})
-            bool = true
-          }
-          
-        });
-        if (!bool)
-          tempList.push({id: i, text: "×", style: "match0 roommates-schedule"})
-      }
-      roomMatesScheduleList.push(tempList)
-    })
+  const roommatesScheduleTable = Object.keys(roomMatesScheduleList).map(function(i) {
+    return (
+      <>
+            <div className="test-container2">
+              {roomMatesScheduleList[i].map(schedule => (
+                <div key={schedule.id} className={schedule.style} >
+                </div>
+              ))}
+            </div>
+      </>
+    );
+  });
 
-    const html = Object.keys(roomMatesScheduleList).map(function(i) {
-      return (
-        <>
-              <div className="test-container2">
-                {roomMatesScheduleList[i].map(schedule => (
-                  <div key={schedule.id} className={schedule.style} >
-                  </div>
-                ))}
-              </div>
-        </>
-      );
-    });
-
-    const roomIndex = roommates.map(roommate => (
-      <div key={roommate.id} className="time-roommates" >
-        {roommate.name}
-      </div>
-    ))
+  const roommatesIndex = roommates.map(roommate => (
+    <div key={roommate.id} className="roommates-name" >
+      {roommate.name}
+    </div>
+  ))
 
     
     return (
   
-    <div className="c-section-container">
-      <h1 className="center">{date}</h1>
+    <div className="c-section-wrapin">
+      <h1 className="text-left">{date}</h1>
       <br/>
-      <div className="test-container">
+      <div className="table_wrap">
         {/* タイムバー */}
         <div className="test-container2">
-          <div className="time-var">
+          <div className="time-bar">
           </div>
           {timeVar.length > 0 && (
             timeVar.map(item => (
-                <div className="time-var" key={item.id}>{item.text}</div>
+                <div className="time-bar" key={item.id}>{item.text}</div>
             ))
           )}
         </div>
         {/* ユーザーバー */}
         <div className="test-container2">
-          <div className="time">{username}</div>
+          <div className="my-name">{username}</div>
           {myScheduleList.length > 0 && (
               myScheduleList.map(mySchedule => (
                 <div key={mySchedule.id} className={mySchedule.style} >
@@ -158,8 +160,8 @@ const ScheduleEdit = () => {
         </div>
         {/* ルームメイトバー */}
         <div>
-          <div className="test-container">{roomIndex}</div>
-          <div className="test-container">{html}</div>
+          <div className="test-container">{roommatesIndex}</div>
+          <div className="test-container">{roommatesScheduleTable}</div>
         </div>
       </div>
 
