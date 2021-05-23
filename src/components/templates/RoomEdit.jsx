@@ -19,7 +19,7 @@ const RoomEdit = () => {
 
   useEffect( () => {
       dispatch(fetchFriends())
-  }, []);
+  }, [dispatch]);
 
   return (
     <section>

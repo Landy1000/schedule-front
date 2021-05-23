@@ -11,9 +11,9 @@ export const deleteRoom = (id) => {
 
     axios({
       method: 'delete',
-      url: 'http://localhost:3001/rooms/'+id,
+      url: process.env.REACT_APP_API_URL+'/rooms/'+id,
       headers: {
-        ["access-token"]: token,
+        "access-token": token,
         uid: uid,
         client: client,
         //["Content-Type"]: "application/json"
@@ -30,6 +30,11 @@ export const deleteRoom = (id) => {
 
 export const createRoom = (name, user_ids) => {
   return async (dispatch, getState) => {
+    // validation
+    if (name === ""){
+      alert("ルーム名が未入力です")
+      return false
+    }
 
     const state = getState()
     const userId = state.users.id
@@ -43,16 +48,14 @@ export const createRoom = (name, user_ids) => {
       }
     }
 
-    console.log(data)
-
     const token = state.users.accessToken
     const uid = state.users.uid
     const client = state.users.client
     axios({
       method: 'post',
-      url: 'http://localhost:3001/rooms/',
+      url: process.env.REACT_APP_API_URL+'/rooms/',
       headers: {
-        ["access-token"]: token,
+        "access-token": token,
         uid: uid,
         client: client,
         //["Content-Type"]: "application/json"
@@ -60,9 +63,7 @@ export const createRoom = (name, user_ids) => {
       data
 
     })
-    .then(snapshots => {
-      
-      console.log(snapshots)
+    .then(() => {
       dispatch(push('/'));
     });
   }
@@ -77,9 +78,9 @@ export const fetchMyRooms = () => {
     const client = state.users.client
     axios({
       method: 'get',
-      url: 'http://localhost:3001/rooms',
+      url: process.env.REACT_APP_API_URL+'/rooms',
       headers: {
-        ["access-token"]: token,
+        "access-token": token,
         uid: uid,
         client: client,
         //["Content-Type"]: "application/json"
@@ -92,10 +93,7 @@ export const fetchMyRooms = () => {
         const room = data[item]
         myRoomList.push(room)
       };
-      console.log(myRoomList)
-
       dispatch(fetchMyRoomsAction(myRoomList))
-
     });
   }
 }

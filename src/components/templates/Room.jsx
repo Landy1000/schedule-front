@@ -42,8 +42,7 @@ const Room = () => {
 
     useEffect( () => {
         dispatch(fetchSchedules(id))
-    }, []);
-
+    }, [dispatch, id]);
 
     const selector = useSelector(state => state)
     const scheduleList = getRoomSchedules(selector)
@@ -101,26 +100,25 @@ const Room = () => {
 
         return   match[targetDate] ?
                 <div>
-                        <p>{match[targetDate]}</p>
+                    <p>{match[targetDate]}</p>
                 </div>
                 : null
-        };
+    };
 
-        // カレンダーの矢印を押した際の動作
-        const nextMonth = () => {
-            const year = startDate.getFullYear();
-            const month = (startDate.getMonth()+1);
-            const nextDate = new Date(year, month, 1)
-            setStartDate(nextDate)
-        }
-
-        const prevMonth = () => {
-            const year = startDate.getFullYear();
-            const month = (startDate.getMonth()-1);
-            const prevDate = new Date(year, month, 1)
-            if (startDate !== -1 )
-                setStartDate(prevDate)
-        }
+    // カレンダーの矢印を押した際の動作
+    const nextMonth = () => {
+        const year = startDate.getFullYear();
+        const month = (startDate.getMonth()+1);
+        const nextDate = new Date(year, month, 1)
+        setStartDate(nextDate)
+    }
+    const prevMonth = () => {
+        const year = startDate.getFullYear();
+        const month = (startDate.getMonth()-1);
+        const prevDate = new Date(year, month, 1)
+        if (startDate !== -1 )
+            setStartDate(prevDate)
+    }
 
     return(
         <div className="c-section-container">

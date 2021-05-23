@@ -26,7 +26,7 @@ const ScheduleEdit = () => {
   const dispatch = useDispatch()
   useEffect( () => {
       dispatch(fetchSchedules(id))
-  }, []);
+  }, [dispatch, id]);
 
   const mySchedules = []
   const roomMatesSchedules = []
@@ -113,14 +113,12 @@ const ScheduleEdit = () => {
 
   const roommatesScheduleTable = Object.keys(roomMatesScheduleList).map(function(i) {
     return (
-      <>
-            <div className="test-container2">
+            <div key={i} className="test-container2">
               {roomMatesScheduleList[i].map(schedule => (
                 <div key={schedule.id} className={schedule.style} >
                 </div>
               ))}
             </div>
-      </>
     );
   });
 
@@ -153,7 +151,7 @@ const ScheduleEdit = () => {
           {myScheduleList.length > 0 && (
               myScheduleList.map(mySchedule => (
                 <div key={mySchedule.id} className={mySchedule.style} >
-                  <button className={mySchedule.style} onClick={() => dispatch(editSchedule(date, mySchedule.id, mySchedule.elementId, id, mySchedule.bool))}></button>
+                  <button key={mySchedule.id} className={mySchedule.style} onClick={() => dispatch(editSchedule(date, mySchedule.id, mySchedule.elementId, id, mySchedule.bool))}></button>
                 </div>
               ))
             )}

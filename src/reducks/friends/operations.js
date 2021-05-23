@@ -1,5 +1,4 @@
 import { fetchFriendsAction } from "./actions"
-import {push} from 'connected-react-router'
 import axios from 'axios';
 
 export const fetchFriends = () => {
@@ -11,9 +10,9 @@ export const fetchFriends = () => {
     const client = state.users.client
     axios({
       method: 'get',
-      url: 'http://localhost:3001/users',
+      url: process.env.REACT_APP_API_URL+'/users',
       headers: {
-        ["access-token"]: token,
+        "access-token": token,
         uid: uid,
         client: client,
         //["Content-Type"]: "application/json"
@@ -26,9 +25,7 @@ export const fetchFriends = () => {
         const friend = data[item]
         friendList.push(friend)
       };
-
       dispatch(fetchFriendsAction(friendList))
-
     });
   }
 }

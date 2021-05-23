@@ -8,7 +8,6 @@ export const editSchedule = (date, time, elementId, roomId, bool) => {
   return async (dispatch, getState) => {
 
     const state = getState()
-    const userId = state.users.id
 
     const data = {
       schedule:{
@@ -24,9 +23,9 @@ export const editSchedule = (date, time, elementId, roomId, bool) => {
 
     axios({
       method: 'post',
-      url: 'http://localhost:3001/rooms/'+roomId+'/schedules',
+      url: process.env.REACT_APP_API_URL+'/rooms/'+roomId+'/schedules',
       headers: {
-        ["access-token"]: token,
+        "access-token": token,
         uid: uid,
         client: client,
         //["Content-Type"]: "application/json"
@@ -45,7 +44,6 @@ export const editSchedule = (date, time, elementId, roomId, bool) => {
     return async (dispatch, getState) => {
 
       const state = getState()
-      const userId = state.users.id
   
       const data = {
         schedule:{
@@ -60,9 +58,9 @@ export const editSchedule = (date, time, elementId, roomId, bool) => {
   
       axios({
         method: 'delete',
-        url: 'http://localhost:3001/rooms/'+roomId+'/schedules/'+elementId,
+        url: process.env.REACT_APP_API_URL+'/rooms/'+roomId+'/schedules/'+elementId,
         headers: {
-          ["access-token"]: token,
+          "access-token": token,
           uid: uid,
           client: client,
           //["Content-Type"]: "application/json"
@@ -88,9 +86,9 @@ export const fetchSchedules = (roomId) => {
     const client = state.users.client
     axios({
       method: 'get',
-      url: 'http://localhost:3001/rooms/'+roomId+'/schedules',
+      url: process.env.REACT_APP_API_URL+'/rooms/'+roomId+'/schedules',
       headers: {
-        ["access-token"]: token,
+        "access-token": token,
         uid: uid,
         client: client,
         //["Content-Type"]: "application/json"

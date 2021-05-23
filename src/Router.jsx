@@ -30,7 +30,7 @@ const Router = () => {
         <Route path="/" exact component={requireSignIn(Home)} />
         <Route path="/room/edit" exact component={requireSignIn(RoomEdit)} />
         <Route path="/room/:id/:date" component={requireSignIn(ScheduleEdit)} />
-        <Route path="/room/:id" component={Room} />
+        <Route path="/room/:id" component={requireSignIn(Room)} />
       </Switch>
   );
 };

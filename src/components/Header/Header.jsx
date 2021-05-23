@@ -49,10 +49,8 @@ const Header = () => {
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.menuBar}>
         <Toolbar className={classes.toolBar}>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <HomeIcon
-              onClick={()=>dispatch(push('/'))}
-            />
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={()=>dispatch(push('/'))}>
+            <HomeIcon/>
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             <div onClick={()=>dispatch(push('/'))}>Share Schedule</div>

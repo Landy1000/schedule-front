@@ -4,13 +4,18 @@ import axios from 'axios';
 
 export const signIn = (email, password) => {
   return async (dispatch, getState) => {
+    // validation
+    if (email === "" || password === "" ){
+      alert("必須項目が未入力です")
+      return false
+    }
+    
     const state = getState()
     const isSignedIn = state.users.isSignedIn
-    console.log(state.users)
 
     if (!isSignedIn) {
 
-      axios.post('http://localhost:3001/v1/auth/sign_in', {
+      axios.post(process.env.REACT_APP_API_URL+'/v1/auth/sign_in', {
         email: email,
         password: password
       })
@@ -27,7 +32,6 @@ export const signIn = (email, password) => {
           id: json.data.id,
         }))
         dispatch(push('/'));
-
       })
     }
   }
@@ -44,7 +48,7 @@ export const signUp = (username, email, password, confirmPassword) => {
       return false
     }
 
-    axios.post('http://localhost:3001/v1/auth/', {
+    axios.post(process.env.REACT_APP_API_URL+'/v1/auth/', {
       name: username,
       email: email,
       password: password,
@@ -76,17 +80,15 @@ export const signOut = () => {
     const client = state.users.client
     axios({
       method: 'delete',
-      url: 'http://localhost:3001/v1/auth/sign_out',
+      url: process.env.REACT_APP_API_URL+'/v1/auth/sign_out',
       headers: {
-        ["access-token"]: token,
+        "access-token": token,
         uid: uid,
         client: client,
         //["Content-Type"]: "application/json"
       }
     })
-    .then(res => {
-      console.log(res.headers)
-
+    .then(() => {
       dispatch(signOutAction());
       dispatch(push('/signin'));
     })

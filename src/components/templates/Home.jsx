@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { getUserName } from "../../reducks/users/selectors";
 import { RoomCard } from "../UIkit"
@@ -12,13 +12,13 @@ import {push} from 'connected-react-router'
 function Home() {
     const dispatch = useDispatch()
     // リンク
-    const createRoom = () => {
+    const createRoom = useCallback(() => {
         dispatch(push("/room/edit"))
-    }
+    }, [dispatch]);
 
     useEffect( () => {
         dispatch(fetchMyRooms())
-    }, []);
+    }, [dispatch]);
 
     const selector = useSelector(state => state)
     const username = getUserName(selector)
@@ -31,13 +31,13 @@ function Home() {
             <div className="center">
                 {myRooms.length > 0 && (
                     myRooms.map(myRoom => (
-                        <>
+                        <div key={myRoom.id}>
                             <RoomCard
                                 id={myRoom.id}
                                 name={myRoom.name}
                             />
                             <br/>
-                        </>
+                        </div>
                     ))
                 )}
             </div>

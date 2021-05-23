@@ -6,7 +6,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Menu from '@material-ui/core/Menu'
@@ -42,7 +41,7 @@ export default function RoomCard(props) {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      
         <CardHeader
           avatar={
             <Avatar aria-label="room" className={classes.avatar}>
@@ -52,7 +51,7 @@ export default function RoomCard(props) {
           action={
             <>
               <IconButton aria-label="settings" onClick={handleClick}>
-              <DeleteIcon />
+                <DeleteIcon />
               </IconButton>
               <Menu
                 anchorEl={anchorEl}
@@ -71,10 +70,9 @@ export default function RoomCard(props) {
               </Menu>
             </>
           }
-          title={<div className="room-card" onClick={()=>dispatch(push("/room/"+props.id))} key={props.id}>{props.name}</div>}
+          title={<CardActionArea><div className="room-card" onClick={()=>dispatch(push("/room/"+props.id))} key={props.id}>{props.name}</div></CardActionArea>}
           // subheader="roommates"
         />
-        </CardActionArea>
     </Card>
   );
 }
